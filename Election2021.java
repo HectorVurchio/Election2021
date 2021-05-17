@@ -12,6 +12,11 @@ import java.util.ListIterator;
 * @since   2021-05-15 
 */
 public class Election2021{
+	int n = 0;
+	Elector elector; 
+	GetFromConsole gfc;
+	StringTokenizer tzer;
+	ArrayList<Elector> elecList;
 	public static void main(String[] arg){
 		
 	}
