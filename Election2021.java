@@ -23,6 +23,16 @@ public class Election2021{
 	* and by elector = gfc.buffRead() to be thrown.
     * @see IOException.
     */
+	void getElectors()throws IOException{
+		gfc = new GetFromConsole();
+		tzer = gfc.readForDim();
+		n = Integer.parseInt(tzer.nextToken());
+		elecList = new ArrayList<Elector>(n);
+		for (int i = 0; i < n; ++i) {
+			elector = gfc.buffRead();
+			elecList.add(elector);
+		}
+	}
 	public static void main(String[] arg){
 		
 	}
