@@ -17,6 +17,12 @@ public class Election2021{
 	GetFromConsole gfc;
 	StringTokenizer tzer;
 	ArrayList<Elector> elecList;
+	/**
+    * This method is used to get the arguments that users insert through console.
+	* @exception IOException, required by tzer = gfc.readForDim() 
+	* and by elector = gfc.buffRead() to be thrown.
+    * @see IOException.
+    */
 	public static void main(String[] arg){
 		
 	}
