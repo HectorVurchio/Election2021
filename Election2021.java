@@ -33,7 +33,29 @@ public class Election2021{
 			elecList.add(elector);
 		}
 	}
+	/**
+    * This method is used to print the arguments that users insert through console.
+    */
+	private void printVoters(){
+		PrintResults pr = new PrintResults();
+		ListIterator<Elector> iterator = elecList.listIterator();
+        while (iterator.hasNext()) {
+			Elector elecObj = iterator.next();
+			pr.printObject(elecObj);
+        }	
+	}
+	/**
+   * The main method that starts the program.
+   * @param args, the command line arguments which not in use.
+   * @exception IOException, required by elec2021.getElectors() and start() methods
+   * to be thrown as well as InterruptedException, also required by waitFor() method to be thrown.
+   * @see IOException,InterruptedException.
+   */
 	public static void main(String[] arg){
-		
+		Election2021 elec2021 = new Election2021();
+		elec2021.getElectors();
+		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");//clear screen 
+		pb.inheritIO().start().waitFor(); 
+		elec2021.printVoters();		
 	}
 }
