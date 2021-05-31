@@ -37,25 +37,40 @@ public class Election2021{
     * This method is used to print the arguments that users insert through console.
     */
 	private void printVoters(){
-		PrintResults pr = new PrintResults();
+		PrintResultsTwo pr = new PrintResultsTwo();
 		ListIterator<Elector> iterator = elecList.listIterator();
         while (iterator.hasNext()) {
 			Elector elecObj = iterator.next();
-			pr.printObject(elecObj);
+			Elector2021Data electObjData = new Elector2021Data(elecObj);
+			pr.printObject(electObjData);
         }	
 	}
+	/**
+    * This is a temporary method to prove a reflection. Must be eliminated in the future
+    */	
+	private void printReflection()throws NoSuchFieldException,IllegalArgumentException, IllegalAccessException{
+		ListIterator<Elector> iterator = elecList.listIterator();
+        while (iterator.hasNext()) {
+			Elector elecObj = iterator.next();
+			Elector2021Data electObjData = new Elector2021Data(elecObj);
+			PrintResultsTwo.reflectionMethod(electObjData);
+        }	
+	}	
+	
 	/**
    * The main method that starts the program.
    * @param args, the command line arguments which not in use.
    * @exception IOException, required by elec2021.getElectors() and start() methods
    * to be thrown as well as InterruptedException, also required by waitFor() method to be thrown.
-   * @see IOException,InterruptedException.
+   * @see IOException,InterruptedException, NoSuchFieldException belonging to printReflection().
    */
-	public static void main(String[] arg){
+	public static void main(String[] arg)throws IOException,InterruptedException,NoSuchFieldException,IllegalArgumentException, IllegalAccessException{
 		Election2021 elec2021 = new Election2021();
 		elec2021.getElectors();
 		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");//clear screen 
 		pb.inheritIO().start().waitFor(); 
-		elec2021.printVoters();		
+		elec2021.printVoters();
+		//calling a printReflection method. must be eliminated followed by printReflection()
+		elec2021.printReflection();
 	}
 }
