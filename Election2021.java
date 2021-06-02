@@ -3,6 +3,7 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.ListIterator;
+import java.util.Random;
 /**
 * The Election2021 runs an application that will be used to give examples
 *  of some data structures and algorithms as well as talk about Java .
@@ -16,7 +17,7 @@ public class Election2021{
 	Elector elector; 
 	GetFromConsole gfc;
 	StringTokenizer tzer;
-	ArrayList<Elector> elecList;
+	public ArrayList<Elector> elecList;
 	/**
     * This method is used to get the arguments that users insert through console.
 	* @exception IOException, required by tzer = gfc.readForDim() 
@@ -36,41 +37,40 @@ public class Election2021{
 	/**
     * This method is used to print the arguments that users insert through console.
     */
-	private void printVoters(){
-		PrintResultsTwo pr = new PrintResultsTwo();
-		ListIterator<Elector> iterator = elecList.listIterator();
-        while (iterator.hasNext()) {
-			Elector elecObj = iterator.next();
+	private void printVoters() throws ClassNotFoundException,NoSuchFieldException,
+									IllegalArgumentException, IllegalAccessException{
+		Random random = new Random();
+		int size = elecList.size();
+		int index = random.nextInt(size-1);
+		boolean empty = elecList.isEmpty();
+		if(elecList.get(index).getClass().getName() == "societyAperson.Elector"){
+			Elector elecObj = elecList.get(index);
 			Elector2021Data electObjData = new Elector2021Data(elecObj);
-			pr.printObject(electObjData);
-        }	
+			PrintResultsThree pr = new PrintResultsThree(electObjData);
+			ListIterator<Elector> iterator = elecList.listIterator();
+			while (iterator.hasNext()) {
+				elecObj = iterator.next();
+				electObjData = new Elector2021Data(elecObj);
+				pr.printObject(electObjData);
+			}
+		}else{
+			System.out.println("The Income object doesn't belong to societyAperson.Elector");
+		}			
 	}
-	/**
-    * This is a temporary method to prove a reflection. Must be eliminated in the future
-    */	
-	private void printReflection()throws NoSuchFieldException,IllegalArgumentException, IllegalAccessException{
-		ListIterator<Elector> iterator = elecList.listIterator();
-        while (iterator.hasNext()) {
-			Elector elecObj = iterator.next();
-			Elector2021Data electObjData = new Elector2021Data(elecObj);
-			PrintResultsTwo.reflectionMethod(electObjData);
-        }	
-	}	
 	
 	/**
    * The main method that starts the program.
    * @param args, the command line arguments which not in use.
    * @exception IOException, required by elec2021.getElectors() and start() methods
    * to be thrown as well as InterruptedException, also required by waitFor() method to be thrown.
-   * @see IOException,InterruptedException, NoSuchFieldException belonging to printReflection().
+   * ClassNotFoundException is required by reflectionHeader method.
+   * @see IOException,InterruptedException, NoSuchFieldException belonging to printVoters().
    */
-	public static void main(String[] arg)throws IOException,InterruptedException,NoSuchFieldException,IllegalArgumentException, IllegalAccessException{
+	public static void main(String[] arg)throws IOException,InterruptedException,NoSuchFieldException,IllegalArgumentException, IllegalAccessException,ClassNotFoundException{
 		Election2021 elec2021 = new Election2021();
 		elec2021.getElectors();
 		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");//clear screen 
 		pb.inheritIO().start().waitFor(); 
 		elec2021.printVoters();
-		//calling a printReflection method. must be eliminated followed by printReflection()
-		elec2021.printReflection();
 	}
 }
